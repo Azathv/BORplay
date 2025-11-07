@@ -2,83 +2,51 @@
 <html lang="uz">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>BorPlay – Dark Player</title>
-  <link rel="preconnect" href="https://images.unsplash.com" />
-  <link rel="stylesheet" href="./style.css" />
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BorPlay Music</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://kit.fontawesome.com/a2e0e6faad.js" crossorigin="anonymous"></script>
 </head>
 <body>
-  <div class="app">
-    <header class="topbar glass">
-      <div class="brand">
-        <div class="logo-dot"></div>
-        <span class="logo-text">BorPlay</span>
-      </div>
-      <div id="tgUser" class="user">🎧</div>
-    </header>
+  <div class="top-bar">
+    <div class="logo">🎧 <span>BorPlay</span></div>
 
-    <main class="card glass" role="main">
-      <section class="album">
-        <img id="cover" alt="Album cover" />
-        <div class="badges">
-          <span class="badge">Hi-Fi</span>
-          <span class="badge badge-accent">Dark</span>
-        </div>
-      </section>
-
-      <section class="info">
-        <div class="meta">
-          <h1 id="title" class="title">—</h1>
-          <p id="artist" class="artist">—</p>
-        </div>
-
-        <div class="controls">
-          <button id="btn-shuffle" class="icon" aria-label="Shuffle" title="Shuffle">
-            <svg viewBox="0 0 24 24"><path d="M17 3h4v4h-2V6h-2V3zm-1 5 3 3-3 3V9zM3 7h6l2 2-2 2H3V7zm0 10h6l6-6h3v2h-2l-6 6H3zm12 0h2v-2h2v4h-4v-2z"/></svg>
-          </button>
-
-          <button id="btn-prev" class="icon" aria-label="Previous" title="Previous">
-            <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zM9 12l10 6V6z"/></svg>
-          </button>
-
-          <button id="btn-play" class="icon play" aria-label="Play/Pause" title="Play/Pause">
-            <svg id="ico-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-            <svg id="ico-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
-          </button>
-
-          <button id="btn-next" class="icon" aria-label="Next" title="Next">
-            <svg viewBox="0 0 24 24"><path d="M6 6l10 6-10 6V6zm12 0h2v12h-2z"/></svg>
-          </button>
-
-          <button id="btn-repeat" class="icon" aria-label="Repeat" title="Repeat">
-            <svg viewBox="0 0 24 24"><path d="M7 7h7V4l5 4-5 4V9H7a3 3 0 0 0 0 6h2v2H7a5 5 0 0 1 0-10zm10 10H10v3l-5-4 5-4v3h7a3 3 0 0 0 0-6h-2V7h2a5 5 0 0 1 0 10z"/></svg>
-          </button>
-        </div>
-
-        <div class="timeline">
-          <span id="current" class="time">0:00</span>
-          <input id="seek" type="range" min="0" max="100" step="1" value="0" aria-label="Seek"/>
-          <span id="duration" class="time">0:00</span>
-        </div>
-
-        <div class="volume">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/></svg>
-          <input id="vol" type="range" min="0" max="1" step="0.01" value="0.85" aria-label="Volume"/>
-        </div>
-
-        <section id="playlist" class="playlist glass-soft" aria-label="Playlist"></section>
-      </section>
-
-      <audio id="audio" preload="metadata" crossorigin="anonymous"></audio>
-    </main>
-
-    <footer class="bottombar glass">
-      <button id="btn-close" class="mini" title="Close">Close</button>
-      <span class="hint">Press Play • Enjoy the vibe</span>
-    </footer>
+    <div class="top-actions">
+      <button id="uploadBtn" class="upload-btn">
+        <i class="fas fa-upload"></i> upload
+      </button>
+      <div class="brand">BorPlay</div>
+    </div>
   </div>
 
-  <script src="./app.js"></script>
+  <div class="player-container">
+    <div class="left">
+      <img src="https://i.imgur.com/JmJfQvF.jpg" class="cover" alt="cover">
+    </div>
+
+    <div class="right">
+      <h2 class="song-title">Night Drive</h2>
+      <p class="artist">B-Play</p>
+
+      <div class="controls">
+        <button class="btn"><i class="fas fa-expand"></i></button>
+        <button class="btn"><i class="fas fa-backward"></i></button>
+        <button class="btn play"><i class="fas fa-play"></i></button>
+        <button class="btn"><i class="fas fa-forward"></i></button>
+        <button class="btn"><i class="fas fa-random"></i></button>
+
+        <!-- QIZIL KVADRAT: visibility toggle -->
+        <button id="visibilityToggle" class="btn visibility-btn" title="Ko‘rinish: yoqilgan">
+          <i id="eyeIcon" class="fas fa-eye"></i>
+        </button>
+      </div>
+
+      <div class="progress-bar">
+        <input type="range" min="0" max="100" value="0" id="progress">
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
 </body>
 </html>
