@@ -8,23 +8,22 @@
   <script src="https://kit.fontawesome.com/a2e0e6faad.js" crossorigin="anonymous"></script>
 </head>
 <body>
-  <div class="top-bar">
+  <!-- TOP BAR -->
+  <header class="top-bar">
     <div class="logo">🎧 <span>BorPlay</span></div>
-
     <div class="top-actions">
-      <button id="uploadBtn" class="upload-btn">
-        <i class="fas fa-upload"></i> upload
-      </button>
-      <div class="brand">BorPlay</div>
+      <button id="uploadBtn" class="upload-btn"><i class="fas fa-upload"></i> upload</button>
+      <span class="brand">BorPlay</span>
     </div>
-  </div>
+  </header>
 
-  <div class="player-container">
-    <div class="left">
-      <img src="https://i.imgur.com/JmJfQvF.jpg" class="cover" alt="cover">
+  <!-- PLAYER WRAPPER -->
+  <main class="player-wrapper">
+    <div class="album-cover">
+      <img src="https://i.imgur.com/tC2pCVk.jpg" alt="Cover" />
     </div>
 
-    <div class="right">
+    <div class="player-box">
       <h2 class="song-title">Night Drive</h2>
       <p class="artist">B-Play</p>
 
@@ -35,17 +34,17 @@
         <button class="btn"><i class="fas fa-forward"></i></button>
         <button class="btn"><i class="fas fa-random"></i></button>
 
-        <!-- QIZIL KVADRAT: visibility toggle -->
-        <button id="visibilityToggle" class="btn visibility-btn" title="Ko‘rinish: yoqilgan">
+        <!-- ko'z (visibility) -->
+        <button id="visibilityToggle" class="btn visibility-btn" title="Ko‘rinish yoqilgan">
           <i id="eyeIcon" class="fas fa-eye"></i>
         </button>
       </div>
 
       <div class="progress-bar">
-        <input type="range" min="0" max="100" value="0" id="progress">
+        <input type="range" id="progress" value="0" min="0" max="100">
       </div>
     </div>
-  </div>
+  </main>
 
   <script src="app.js"></script>
 </body>
