@@ -1,72 +1,70 @@
-// Audio elementlar
 const audio = document.getElementById("audio");
 const playBtn = document.getElementById("playBtn");
-const progress = document.getElementById("progress");
 const songTitle = document.getElementById("songTitle");
-
-// Upload funksiyasi
+const coverImage = document.getElementById("coverImage");
+const progressBar = document.getElementById("progressBar");
 const uploadBtn = document.getElementById("uploadBtn");
 const fileInput = document.getElementById("fileInput");
+const visibilityBtn = document.getElementById("visibilityBtn");
+const eyeIcon = document.getElementById("eyeIcon");
 
-uploadBtn.addEventListener("click", () => {
-  // Har qanday qurilmada (kompyuter, telefon, iPhone, Android)
-  // bu kod avtomatik fayl tanlash oynasini ochadi:
-  fileInput.click();
-});
+let visible = true;
 
-// Foydalanuvchi fayl tanlaganda:
-fileInput.addEventListener("change", (event) => {
-  const file = event.target.files[0];
+// 🔸 Upload - ochish
+uploadBtn.addEventListener("click", () => fileInput.click());
+
+// 🔹 MP3 yuklash
+fileInput.addEventListener("change", (e) => {
+  const file = e.target.files[0];
   if (file && file.type === "audio/mpeg") {
     const fileURL = URL.createObjectURL(file);
     audio.src = fileURL;
     songTitle.textContent = file.name.replace(".mp3", "");
     audio.play();
     playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+    coverImage.classList.add("rotate");
   } else {
-    alert("Faqat MP3 formatdagi fayllarni tanlang 🎵");
+    alert("❗ Faqat MP3 fayllarni tanlang!");
   }
 });
 
-// Play/pause
+// ▶️ / ⏸ PLAY
 playBtn.addEventListener("click", () => {
-  if (audio.src) {
-    if (audio.paused) {
-      audio.play();
-      playBtn.innerHTML = '<i class="fas fa-pause"></i>';
-    } else {
-      audio.pause();
-      playBtn.innerHTML = '<i class="fas fa-play"></i>';
-    }
+  if (!audio.src) return alert("Avval MP3 yuklang 🎶");
+  if (audio.paused) {
+    audio.play();
+    playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+    coverImage.classList.add("rotate");
   } else {
-    alert("Avval MP3 yuklang 🎶");
+    audio.pause();
+    playBtn.innerHTML = '<i class="fas fa-play"></i>';
+    coverImage.classList.remove("rotate");
   }
 });
 
-// Progress bar yangilash
+// 📊 Progress bar
 audio.addEventListener("timeupdate", () => {
-  progress.value = (audio.currentTime / audio.duration) * 100 || 0;
+  const percent = (audio.currentTime / audio.duration) * 100;
+  progressBar.style.width = percent + "%";
 });
 
-// Progress bar o‘zgartirilsa
-progress.addEventListener("input", () => {
-  audio.currentTime = (progress.value / 100) * audio.duration;
+// 🔁 Tugaganda reset
+audio.addEventListener("ended", () => {
+  playBtn.innerHTML = '<i class="fas fa-play"></i>';
+  coverImage.classList.remove("rotate");
+  progressBar.style.width = "0%";
 });
 
-// Ko‘rinish (visibility) tugmasi
-const visibilityBtn = document.getElementById("visibilityToggle");
-const eyeIcon = document.getElementById("eyeIcon");
-let isVisible = true;
-
+// 👁 Ko‘rinish tugmasi
 visibilityBtn.addEventListener("click", () => {
-  isVisible = !isVisible;
-  if (isVisible) {
+  visible = !visible;
+  if (visible) {
+    visibilityBtn.classList.remove("off");
     eyeIcon.classList.remove("fa-eye-slash");
     eyeIcon.classList.add("fa-eye");
-    visibilityBtn.classList.remove("off");
   } else {
+    visibilityBtn.classList.add("off");
     eyeIcon.classList.remove("fa-eye");
     eyeIcon.classList.add("fa-eye-slash");
-    visibilityBtn.classList.add("off");
   }
 });
