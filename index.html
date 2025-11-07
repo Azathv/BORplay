@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>BorPlay 🎧</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://kit.fontawesome.com/a2e0e6faad.js" crossorigin="anonymous"></script>
+
+  <!-- FA kit o‘rniga CDN: kvadrat ikonka muammosini hal qiladi -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        integrity="sha512-1ycn6IcaQQ40/J6MDNm0GfN0Zx1U4N1p6G2V5YvYwG9HnYlq7c0q8i3l6Y6YvH+G2fYH9Qf7vblx9ZxR+Y2G2w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <!-- HEADER -->
   <header class="top-bar">
     <div class="logo">🎧 <span>BorPlay</span></div>
     <div class="actions">
-      <button id="uploadBtn" class="upload-btn"><i class="fas fa-upload"></i> upload</button>
+      <button id="uploadBtn" class="upload-btn"><i class="fa-solid fa-upload"></i> upload</button>
       <span class="brand">BorPlay</span>
     </div>
   </header>
@@ -20,7 +26,11 @@
   <!-- PLAYER -->
   <main class="player">
     <div class="cover">
-      <img id="coverImage" src="https://i.imgur.com/tC2pCVk.jpg" alt="cover">
+      <!-- Barqaror rasm + nosozlikda fallback -->
+      <img id="coverImage"
+           src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=800&auto=format&fit=crop"
+           alt="cover"
+           onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22250%22 height=%22250%22><rect width=%22250%22 height=%22250%22 fill=%22%230f0f17%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23fff%22 font-family=%22Arial%22 font-size=%2216%22>BorPlay</text></svg>';">
     </div>
 
     <div class="controls-container">
@@ -28,24 +38,24 @@
       <p id="artist">B-Play</p>
 
       <div class="controls">
-        <button class="btn"><i class="fas fa-backward"></i></button>
-        <button id="playBtn" class="btn play"><i class="fas fa-play"></i></button>
-        <button class="btn"><i class="fas fa-forward"></i></button>
-        <button id="visibilityBtn" class="btn visibility"><i id="eyeIcon" class="fas fa-eye"></i></button>
+        <button class="btn"><i class="fa-solid fa-backward"></i></button>
+        <button id="playBtn" class="btn play"><i class="fa-solid fa-play"></i></button>
+        <button class="btn"><i class="fa-solid fa-forward"></i></button>
+        <button id="visibilityBtn" class="btn visibility" title="Ko‘rinish yoqilgan">
+          <i id="eyeIcon" class="fa-solid fa-eye"></i>
+        </button>
       </div>
 
       <div class="progress-container">
-        <div class="progress-bg">
-          <div id="progressBar" class="progress-bar"></div>
-        </div>
+        <div class="progress-bg"><div id="progressBar" class="progress-bar"></div></div>
       </div>
 
-      <audio id="audio"></audio>
+      <audio id="audio" preload="metadata"></audio>
     </div>
   </main>
 
-  <!-- HIDDEN FILE INPUT -->
-  <input type="file" id="fileInput" accept=".mp3" hidden />
+  <!-- Yashirin fayl input (iOS uchun kengroq accept) -->
+  <input type="file" id="fileInput" accept="audio/mpeg,audio/mp3,audio/*" hidden />
 
   <script src="app.js"></script>
 </body>
