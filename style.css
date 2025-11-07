@@ -1,10 +1,12 @@
 body {
   margin: 0;
+  padding: 0;
   font-family: 'Poppins', sans-serif;
   background: #0f0f17;
   color: #fff;
 }
 
+/* HEADER */
 .top-bar {
   display: flex;
   justify-content: space-between;
@@ -15,86 +17,83 @@ body {
 }
 
 .logo span {
-  font-weight: bold;
   color: #ff79c6;
+  font-weight: 600;
 }
 
 .top-actions {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 12px;
 }
 
 .upload-btn {
   background: #ffde59;
-  border: 2px solid #f0c000;
-  color: #000;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 8px;
   font-weight: bold;
-  padding: 6px 14px;
-  border-radius: 6px;
   cursor: pointer;
   transition: 0.2s;
 }
-
-.upload-btn:hover {
-  background: #fff078;
-}
+.upload-btn:hover { background: #fff27a; }
 
 .brand {
-  color: #ccc;
+  color: #bbb;
   font-weight: 500;
 }
 
-.player-container {
+/* PLAYER AREA */
+.player-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 40px;
-  padding: 20px;
+  margin-top: 60px;
   gap: 40px;
 }
 
-.left .cover {
-  width: 260px;
-  height: 260px;
+.album-cover img {
+  width: 250px;
+  height: 250px;
   border-radius: 12px;
+  box-shadow: 0 0 25px rgba(0,0,0,0.4);
   object-fit: cover;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
 }
 
-.right {
+/* PLAYER BOX */
+.player-box {
   background: #1c1c26;
   padding: 25px;
-  border-radius: 15px;
-  width: 350px;
-  box-shadow: 0 0 25px rgba(0,0,0,0.5);
+  border-radius: 18px;
+  width: 380px;
+  box-shadow: 0 0 35px rgba(0,0,0,0.5);
 }
 
 .song-title {
   margin: 0;
   font-size: 22px;
   font-weight: 600;
-  color: #fff;
 }
 
 .artist {
-  margin: 3px 0 20px 0;
+  margin: 5px 0 20px 0;
   color: #999;
+  font-size: 14px;
 }
 
 .controls {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
 }
 
 .btn {
-  background: #2a2a34;
+  background: #2b2b36;
   border: none;
-  color: #fff;
-  width: 40px;
-  height: 40px;
+  color: white;
+  width: 42px;
+  height: 42px;
   border-radius: 10px;
   font-size: 16px;
   cursor: pointer;
@@ -102,18 +101,18 @@ body {
 }
 
 .btn:hover {
-  background: #38384a;
+  background: #3b3b4a;
 }
 
 .play {
   background: linear-gradient(135deg, #ff79c6, #8be9fd);
+  color: #000;
 }
 
 .visibility-btn {
   background: #b81d1d;
 }
-
-.visibility-btn.hidden {
+.visibility-btn.off {
   background: #444;
 }
 
