@@ -1,51 +1,26 @@
-<!DOCTYPE html>
-<html lang="uz">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BorPlay Music</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://kit.fontawesome.com/a2e0e6faad.js" crossorigin="anonymous"></script>
-</head>
-<body>
-  <!-- TOP BAR -->
-  <header class="top-bar">
-    <div class="logo">🎧 <span>BorPlay</span></div>
-    <div class="top-actions">
-      <button id="uploadBtn" class="upload-btn"><i class="fas fa-upload"></i> upload</button>
-      <span class="brand">BorPlay</span>
-    </div>
-  </header>
+// Upload tugmasi
+document.getElementById("uploadBtn").addEventListener("click", () => {
+  alert("📤 Fayl yuklash funksiyasi tez orada qo‘shiladi!");
+});
 
-  <!-- PLAYER WRAPPER -->
-  <main class="player-wrapper">
-    <div class="album-cover">
-      <img src="https://i.imgur.com/tC2pCVk.jpg" alt="Cover" />
-    </div>
+// Visibility toggle
+const visibilityBtn = document.getElementById("visibilityToggle");
+const eyeIcon = document.getElementById("eyeIcon");
 
-    <div class="player-box">
-      <h2 class="song-title">Night Drive</h2>
-      <p class="artist">B-Play</p>
+let isVisible = true;
 
-      <div class="controls">
-        <button class="btn"><i class="fas fa-expand"></i></button>
-        <button class="btn"><i class="fas fa-backward"></i></button>
-        <button class="btn play"><i class="fas fa-play"></i></button>
-        <button class="btn"><i class="fas fa-forward"></i></button>
-        <button class="btn"><i class="fas fa-random"></i></button>
+visibilityBtn.addEventListener("click", () => {
+  isVisible = !isVisible;
 
-        <!-- ko'z (visibility) -->
-        <button id="visibilityToggle" class="btn visibility-btn" title="Ko‘rinish yoqilgan">
-          <i id="eyeIcon" class="fas fa-eye"></i>
-        </button>
-      </div>
-
-      <div class="progress-bar">
-        <input type="range" id="progress" value="0" min="0" max="100">
-      </div>
-    </div>
-  </main>
-
-  <script src="app.js"></script>
-</body>
-</html>
+  if (isVisible) {
+    eyeIcon.classList.remove("fa-eye-slash");
+    eyeIcon.classList.add("fa-eye");
+    visibilityBtn.classList.remove("off");
+    visibilityBtn.title = "Ko‘rinish yoqilgan";
+  } else {
+    eyeIcon.classList.remove("fa-eye");
+    eyeIcon.classList.add("fa-eye-slash");
+    visibilityBtn.classList.add("off");
+    visibilityBtn.title = "Ko‘rinish o‘chirilgan";
+  }
+});
