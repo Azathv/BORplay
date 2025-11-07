@@ -1,26 +1,52 @@
-// Upload tugmasi
-document.getElementById("uploadBtn").addEventListener("click", () => {
-  alert("📤 Fayl yuklash funksiyasi tez orada qo‘shiladi!");
-});
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BorPlay 🎧</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://kit.fontawesome.com/a2e0e6faad.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="top-bar">
+    <div class="logo">🎧 <span>BorPlay</span></div>
+    <div class="actions">
+      <button id="uploadBtn" class="upload-btn"><i class="fas fa-upload"></i> upload</button>
+      <span class="brand">BorPlay</span>
+    </div>
+  </header>
 
-// Visibility toggle
-const visibilityBtn = document.getElementById("visibilityToggle");
-const eyeIcon = document.getElementById("eyeIcon");
+  <!-- PLAYER -->
+  <main class="player">
+    <div class="cover">
+      <img id="coverImage" src="https://i.imgur.com/tC2pCVk.jpg" alt="cover">
+    </div>
 
-let isVisible = true;
+    <div class="controls-container">
+      <h2 id="songTitle">Qo‘shiq tanlanmagan</h2>
+      <p id="artist">B-Play</p>
 
-visibilityBtn.addEventListener("click", () => {
-  isVisible = !isVisible;
+      <div class="controls">
+        <button class="btn"><i class="fas fa-backward"></i></button>
+        <button id="playBtn" class="btn play"><i class="fas fa-play"></i></button>
+        <button class="btn"><i class="fas fa-forward"></i></button>
+        <button id="visibilityBtn" class="btn visibility"><i id="eyeIcon" class="fas fa-eye"></i></button>
+      </div>
 
-  if (isVisible) {
-    eyeIcon.classList.remove("fa-eye-slash");
-    eyeIcon.classList.add("fa-eye");
-    visibilityBtn.classList.remove("off");
-    visibilityBtn.title = "Ko‘rinish yoqilgan";
-  } else {
-    eyeIcon.classList.remove("fa-eye");
-    eyeIcon.classList.add("fa-eye-slash");
-    visibilityBtn.classList.add("off");
-    visibilityBtn.title = "Ko‘rinish o‘chirilgan";
-  }
-});
+      <div class="progress-container">
+        <div class="progress-bg">
+          <div id="progressBar" class="progress-bar"></div>
+        </div>
+      </div>
+
+      <audio id="audio"></audio>
+    </div>
+  </main>
+
+  <!-- HIDDEN FILE INPUT -->
+  <input type="file" id="fileInput" accept=".mp3" hidden />
+
+  <script src="app.js"></script>
+</body>
+</html>
