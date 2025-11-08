@@ -1,65 +1,93 @@
-// Elementlar
-const audio = document.getElementById('audio');
-const playBtn = document.getElementById('playBtn');
-const songTitle = document.getElementById('songTitle');
-const coverImage = document.getElementById('coverImage');
-const progressBar = document.getElementById('progressBar');
+// === Supabase ulanish ===
+const SUPABASE_URL = "https://xeidlpkwwpghtlzocjjh.supabase.co"; // shu joyga Supabase project URL
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhlaWRscGt3d3BnaHRsem9jampoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIwMDY0MjQsImV4cCI6MjA3NzU4MjQyNH0.40V9blptMQ9pTU8kHAqtlyaduoFevOO12uW563WTToI"; // shu joyga anon public key
 
 const uploadBtn = document.getElementById('uploadBtn');
 const fileInput = document.getElementById('fileInput');
-
+const audio = document.getElementById('audio');
+const playBtn = document.getElementById('playBtn');
+const songTitle = document.getElementById('songTitle');
+const progressBar = document.getElementById('progressBar');
+const coverImage = document.getElementById('coverImage');
 const visibilityBtn = document.getElementById('visibilityBtn');
 const eyeIcon = document.getElementById('eyeIcon');
 
+// ❤️ Sevimlilar tugmasi yaratamiz
+const favBtn = document.createElement('button');
+favBtn.classList.add('btn', 'fav');
+favBtn.innerHTML = '<i class="fa-regular fa-heart"></i>';
+document.querySelector('.controls').appendChild(favBtn);
+
 let visible = true;
+let isFavorite = false;
 
-// 📤 Upload: har qanday qurilmada fayl tanlash oynasini ochadi
-uploadBtn.addEventListener('click', () => fileInput.click());
+// Supabase SDK ni yuklaymiz
+import("https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm").then(({ createClient }) => {
+  const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// MP3 tanlanganda avtomatik yuklab, o‘ynatamiz
-fileInput.addEventListener('change', e => {
-  const file = e.target.files?.[0];
-  if (!file) return;
-  if (!/^audio\//.test(file.type)) {
-    alert('❗ Faqat audio (MP3) fayl tanlang'); return;
-  }
-  const url = URL.createObjectURL(file);
-  audio.src = url;
-  songTitle.textContent = (file.name || 'MP3').replace(/\.mp3$/i, '');
-  audio.play().catch(()=>{}); // iOS autoplay cheklovlariga yumshoq urinish
-  playBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
-  coverImage.classList.add('rotate');
-});
+  // 📤 Upload tugmasi - fayl tanlash oynasi
+  uploadBtn.addEventListener('click', () => fileInput.click());
 
-// ▶️/⏸ Play-Pause
-playBtn.addEventListener('click', () => {
-  if (!audio.src) { fileInput.click(); return; }
-  if (audio.paused) {
-    audio.play().catch(()=>{});
+  // Fayl tanlanganda yuklash
+  fileInput.addEventListener('change', async (e) => {
+    const file = e.target.files?.[0];
+    if (!file || !/^audio\//.test(file.type)) {
+      alert('❗ Faqat MP3 fayllarni tanlang!');
+      return;
+    }
+
+    const fileName = `${Date.now()}_${file.name}`;
+    const { data, error } = await supabase.storage.from('songs').upload(fileName, file);
+
+    if (error) {
+      alert('Xatolik: ' + error.message);
+      return;
+    }
+
+    const { data: publicUrl } = supabase.storage.from('songs').getPublicUrl(fileName);
+    const songUrl = publicUrl.publicUrl;
+
+    // Playerda o‘ynatish
+    audio.src = songUrl;
+    songTitle.textContent = file.name.replace(".mp3", "");
+    audio.play();
     playBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
     coverImage.classList.add('rotate');
-  } else {
-    audio.pause();
-    playBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
-    coverImage.classList.remove('rotate');
-  }
-});
+  });
 
-// 📊 Progress (silliq animatsiya)
-audio.addEventListener('timeupdate', () => {
-  const pct = (audio.currentTime / (audio.duration || 1)) * 100;
-  progressBar.style.width = `${pct}%`;
-});
-audio.addEventListener('ended', () => {
-  playBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
-  coverImage.classList.remove('rotate');
-  progressBar.style.width = '0%';
-});
+  // ▶️ / ⏸ Play tugmasi
+  playBtn.addEventListener('click', () => {
+    if (!audio.src) return alert("Avval MP3 yuklang 🎶");
+    if (audio.paused) {
+      audio.play();
+      playBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+      coverImage.classList.add('rotate');
+    } else {
+      audio.pause();
+      playBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+      coverImage.classList.remove('rotate');
+    }
+  });
 
-// 👁 Ko‘rinish tugmasi (hozircha UI state)
-visibilityBtn.addEventListener('click', () => {
-  visible = !visible;
-  visibilityBtn.classList.toggle('off', !visible);
-  eyeIcon.classList.toggle('fa-eye',  visible);
-  eyeIcon.classList.toggle('fa-eye-slash', !visible);
+  // 📊 Progress
+  audio.addEventListener('timeupdate', () => {
+    const pct = (audio.currentTime / (audio.duration || 1)) * 100;
+    progressBar.style.width = `${pct}%`;
+  });
+
+  // ❤️ Sevimlilar tugmasi
+  favBtn.addEventListener('click', () => {
+    isFavorite = !isFavorite;
+    favBtn.innerHTML = isFavorite
+      ? '<i class="fa-solid fa-heart" style="color:#ff79c6"></i>'
+      : '<i class="fa-regular fa-heart"></i>';
+  });
+
+  // 👁 Ko‘rinish tugmasi
+  visibilityBtn.addEventListener('click', () => {
+    visible = !visible;
+    visibilityBtn.classList.toggle('off', !visible);
+    eyeIcon.classList.toggle('fa-eye', visible);
+    eyeIcon.classList.toggle('fa-eye-slash', !visible);
+  });
 });
