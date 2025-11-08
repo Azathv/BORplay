@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BorPlay 🎧</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="top-bar">
+    <div class="logo"><span>🎧 BorPlay</span></div>
+    <div class="actions">
+      <input type="file" id="fileInput" accept="audio/*" hidden />
+      <button id="uploadBtn" class="upload-btn">Upload</button>
+      <span class="brand">BorPlay</span>
+    </div>
+  </header>
+
+  <main class="player">
+    <div class="cover">
+      <img id="coverImage" src="https://cdn-icons-png.flaticon.com/512/727/727240.png" alt="cover" />
+    </div>
+
+    <div class="controls-container">
+      <h2 id="songTitle">Qo‘shiq tanlanmagan</h2>
+      <p id="artist">B-Play</p>
+
+      <div class="controls">
+        <button class="btn"><i class="fa-solid fa-backward"></i></button>
+        <button id="playBtn" class="btn play"><i class="fa-solid fa-play"></i></button>
+        <button class="btn"><i class="fa-solid fa-forward"></i></button>
+        <button id="visibilityBtn" class="btn visibility"><i id="eyeIcon" class="fa-solid fa-eye"></i></button>
+      </div>
+
+      <div class="progress-container">
+        <div class="progress-bg">
+          <div id="progressBar" class="progress-bar"></div>
+        </div>
+      </div>
+
+      <audio id="audio"></audio>
+    </div>
+  </main>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
