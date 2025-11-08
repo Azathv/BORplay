@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BorPlay Premium 🎧</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="top">
+    <div class="brand"><i class="fa-solid fa-headphones"></i> <strong>BorPlay</strong></div>
+    <div class="actions">
+      <input type="file" id="fileInput" accept="audio/*" hidden />
+      <button id="uploadBtn" class="btn yellow"><i class="fa-solid fa-cloud-arrow-up"></i> Upload</button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="cover">
+      <img id="coverImage" src="https://images.unsplash.com/photo-1546443046-ed1ce6ffd1ab?q=80&w=800&auto=format&fit=crop" alt="cover" />
+    </section>
+
+    <section class="card">
+      <h2 id="songTitle">Qo‘shiq tanlanmagan</h2>
+      <p class="muted" id="artist">B‑Play</p>
+
+      <div class="controls">
+        <button id="prevBtn" class="btn"><i class="fa-solid fa-backward-step"></i></button>
+        <button id="playBtn" class="btn play"><i class="fa-solid fa-play"></i></button>
+        <button id="nextBtn" class="btn"><i class="fa-solid fa-forward-step"></i></button>
+        <button id="visibilityBtn" class="btn danger" title="Ko‘rinish"><i id="eyeIcon" class="fa-solid fa-eye"></i></button>
+        <button id="favBtn" class="btn heart" title="Sevimlilar"><i id="favIcon" class="fa-regular fa-heart"></i></button>
+      </div>
+
+      <div class="progress">
+        <div id="progressBar"></div>
+      </div>
+
+      <div id="statsLine" class="muted small">Tinglangan: 0 • ❤️: 0</div>
+
+      <audio id="audio"></audio>
+    </section>
+  </main>
+
+  <section class="list">
+    <h3>Yuklangan qo‘shiqlar</h3>
+    <div id="playlist" class="playlist"></div>
+  </section>
+
+  <footer class="foot">© BorPlay • Premium demo</footer>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
